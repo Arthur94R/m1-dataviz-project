@@ -1,143 +1,141 @@
-# Projet Visualisation Big Data - Conflits Armés Mondiaux
+# Projet : Visualiation de données massives
+# Analyse des Conflits Armés Mondiaux (1946-2024)
 
-**Auteur:** Arthur  
-**Formation:** Master 1 - Informatique Big Data 
-**Université:** Paris 8  
-**Cours:** Visualisation Big Data
+**Auteur :** RONDEAU Arthur  
+**Formation :** Master 1 Informatique Big Data - Université Paris 8
 
-## 📋 Description
+---
 
-Projet d'analyse géopolitique des conflits armés à l'échelle mondiale (1946-2024) utilisant les données de l'Uppsala Conflict Data Program (UCDP). Ce projet comprend un pipeline Python de préparation des données et une visualisation interactive sous Tableau.
+## 📋 Description du Projet
 
-## 📁 Structure du Projet
+Projet de visualisation interactive des conflits armés à l'échelle mondiale utilisant les données de l'**Uppsala Conflict Data Program (UCDP)**. Le projet combine un pipeline Python de préparation des données et un dashboard Tableau avec 8 visualisations complémentaires pour analyser 78 ans de conflits armés.
 
-```
-projet_conflits_armes/
-│
-├── main.py                 # Script principal d'exécution
-├── README.md              # Ce fichier
-│
-├── src/
-│   └── pipeline.py        # Pipeline de transformation des données
-│
-├── data/                  # Données sources (à placer ici)
-│   └── UcdpPrioConflict_v25_1.csv
-│
-└── outputs/               # Fichiers générés
-    └── UCDP_Conflicts_Tableau_Ready.csv
-```
+---
 
-## 🚀 Utilisation
+## 📊 Le Dataset
+
+**Source :** UCDP PRIO Armed Conflict Dataset v25.1  
+**Volume :** 2 752 enregistrements | 303 conflits uniques | 119 pays affectés  
+**Période :** 1946 - 2024 (78 ans d'historique)  
+**Périmètre :** Conflits impliquant au moins un État (guerres interétatiques, guerres civiles, interventions militaires)
+
+### Types de conflits
+- **Interstate** : Guerres entre États (ex: Russie vs Ukraine 2022) - 5%
+- **Interne** : Guerres civiles - 73%
+- **Internationalisé** : Guerres civiles avec intervention étrangère - 18%
+- **Extrasystémique** : Conflits coloniaux - 4%
+
+### Variables enrichies
+- **Géographie** : `Pays Carte`, `region_label` (Europe, Asie, Afrique, Moyen-Orient, Amériques)
+- **Temporalité** : `Decennie Text`, `periode_historique` (9 périodes : Post-WW2, Guerre Froide, Post-URSS...)
+- **Typologie** : `type_conflit_label`, `objet_conflit` (Territoire vs Gouvernement)
+- **Intensité** : `intensite_label` (Mineur: 25-999 morts, Guerre: 1000+ morts)
+- **Statistiques** : `Duree Conflit`, `nb_annees`, `intensite_max`, `conflit_actif`
+- **Focus** : `est_ukraine_russie`, `Adversaire Ukraine Simplifié`
+
+---
+
+## 🎨 Les 7 Visualisations
+
+### 1. Carte Mondiale Interactive
+**Principe :** Cercles proportionnels au nombre de conflits par pays, colorés selon l'intensité (orange=mineur, rouge=guerre). Filtrable par année via slider.
+
+### 2. Timeline Évolution (1946-2024)
+**Principe :** Lignes empilées montrant l'évolution du nombre de conflits dans le temps, par type de conflit.
+
+### 3. Top 10 Pays Affectés
+**Principe :** Barres horizontales des 10 pays avec le plus de conflits, avec gradient de couleur (rouge = plus touché).
+
+### 4. Heatmap Décennie × Région
+**Principe :** Grille colorée (9 décennies × 5 régions) où l'intensité de couleur représente le nombre de conflits. Identifie les zones chaudes à chaque époque.
+
+### 5. Treemap Types de Conflits
+**Principe :** Rectangles proportionnels au nombre de conflits par type (Interstate, Interne, Internationalisé, Extrasystémique).
+
+### 6. Top 5 Conflits les Plus Longs
+**Principe :** Barres horizontales des 5 conflits avec la plus grande durée (calculée avec `annee_fin - annee_debut + 1`).
+
+### 7. Heatmap Ukraine-Russie
+**Principe :** Grille année × adversaire montrant l'évolution du conflit 2014-2024. Couleur = intensité. Suit l'escalade du conflit.
+
+---
+
+## 📈 Résultats et Interprétations
+
+### Principaux Insights
+
+**Géographie :**
+- **Myanmar leader** avec ~303 conflits (26% du total), suivi de l'Inde (187) et de l'Éthiopie (132)
+- **L'Asie concentre 39%** des conflits, suivie de l'Afrique (33%)
+- **Le Moyen-Orient** représente 14% malgré sa petite taille géographique
+
+**Évolution :**
+- **Tendance croissante** : +300% de conflits depuis 1946 (72 → 287)
+- **Pic historique** dans les années 2010 (456 conflits) lié au Printemps arabe
+- **61 conflits actifs en 2024**, dont des guerres majeures (Ukraine, Gaza, Myanmar)
+
+**Typologie :**
+- **73% de conflits internes** : domination écrasante des guerres civiles
+- **Seulement 5% interétatiques** : déclin des guerres État vs État
+- **18% internationalisés** : guerres civiles avec interventions étrangères
+
+**Enjeux :**
+- **55% territoriaux** : séparatisme, contrôle de régions, frontières
+- **44% gouvernementaux** : qui contrôle l'État, légitimité du régime
+
+**Ukraine-Russie :**
+- **2014** : année charnière (Maïdan, Crimée, Donbass)
+- **2022** : escalade majeure avec invasion russe
+- **2024** : conflit toujours actif avec soutien nord-coréen
+
+**Conflits les plus longs :**
+- Philippines : Insurrection communiste **79 ans** (1946-2024, incluant Hukbalahap puis CPP)
+- Myanmar vs CPB : **77 ans**
+- Myanmar vs KNU : **76 ans**
+- Myanmar vs KIO : **76 ans**
+- Turquie vs PKK : **41 ans**
+
+---
+
+## 🚀 Installation et Lancement
 
 ### Prérequis
-
 ```bash
+Python 3.8+
+pandas
+numpy
+Tableau Desktop
+```
+
+### Installation
+```bash
+cd projet_conflits_armes
 pip install pandas numpy
 ```
 
-### Exécution du Pipeline
-
+### Exécution
 ```bash
 python main.py
 ```
+**Sortie :** `UCDP_Conflicts_Tableau_Ready.csv` dans `/outputs/`
 
-Le script :
-1. Charge le dataset UCDP brut
-2. Applique toutes les transformations
-3. Génère le fichier CSV prêt pour Tableau
-4. Affiche les statistiques récapitulatives
+### Visualisation Tableau
+- Ouvrir lien Tableau publique ou télécharger fichier .twb provenant du repo Github (avec jeu de données nettoyé)
 
-## 🔧 Fonctionnalités du Pipeline
+---
 
-Le fichier `pipeline.py` contient 17 fonctions modulaires :
+### Pipeline (17 fonctions modulaires)
 
-### Chargement
-- `load_data()` - Chargement du CSV source
+**main.py (59 lignes)** : Gestion des chemins, vérification des fichiers, appel du pipeline, gestion d'erreurs.
 
-### Enrichissement des labels
-- `add_conflict_type_labels()` - Types de conflits (Interstate, Interne, etc.)
-- `add_intensity_labels()` - Niveaux d'intensité (Mineur, Guerre)
-- `add_region_labels()` - Régions géographiques
-- `add_incompatibility_labels()` - Objets du conflit (Territoire, Gouvernement)
+**pipeline.py (503 lignes)** :
 
-### Dimensions temporelles
-- `add_historical_periods()` - Périodes historiques contextualisées
-- `add_decade()` - Décennies
-
-### Géographie
-- `extract_primary_country()` - Extraction du pays principal
-
-### Calculs et statistiques
-- `calculate_conflict_duration()` - Durée en années
-- `add_conflict_statistics()` - Stats agrégées par conflit
-- `flag_active_conflicts()` - Identification des conflits actifs
-
-### Flags spéciaux
-- `flag_ukraine_russia_conflicts()` - Flag Ukraine-Russie
-
-### Nettoyage
-- `clean_dates()` - Conversion des dates
-- `select_final_columns()` - Sélection des colonnes pertinentes
-- `sort_data()` - Tri des données
-
-### Export
-- `save_to_csv()` - Sauvegarde en CSV
-- `generate_summary_statistics()` - Statistiques descriptives
-
-### Pipeline complet
-- `run_full_pipeline()` - Exécution orchestrée de toutes les étapes
-
-## 📊 Variables Générées
-
-### Identifiants
-- `conflict_id`, `year`, `decennie`, `periode_historique`
-
-### Géographie
-- `location`, `pays_principal`, `region`, `region_label`
-
-### Acteurs
-- `side_a`, `side_b`, `side_a_2nd`, `side_b_2nd`
-
-### Type de conflit
-- `type_of_conflict`, `type_conflit_label`, `incompatibility`, `objet_conflit`
-
-### Intensité
-- `intensity_level`, `intensite_label`, `cumulative_intensity`
-
-### Temporalité
-- `start_date_clean`, `ep_end_date_clean`, `duree_annees`, `annee_debut`, `annee_fin`
-
-### Statistiques
-- `nb_annees`, `intensite_max`, `conflit_actif`
-
-### Flags
-- `est_ukraine_russie` (1 si implique Ukraine/Russie, 0 sinon)
-
-## 📈 Données Produites
-
-Le dataset final contient :
-- **~2750 enregistrements** de conflits armés
-- **34 colonnes** enrichies et prêtes pour l'analyse
-- **Période:** 1946-2024 (78 ans d'historique)
-
-## 🎯 Utilisation dans Tableau
-
-Le fichier CSV généré peut être importé directement dans Tableau pour créer :
-- Cartes géographiques interactives
-- Timelines temporelles
-- Analyses typologiques
-- Dashboard Ukraine-Russie
-- Comparaisons régionales
-
-## 📖 Source des Données
-
-**Uppsala Conflict Data Program (UCDP) v25.1**  
-Department of Peace and Conflict Research, Uppsala University  
-URL: https://ucdp.uu.se/downloads/
-
-## 📝 Notes
-
-- Les labels sont en français pour faciliter la visualisation
-- Les périodes historiques sont pré-définies pour contextualiser les conflits
-- Le flag Ukraine-Russie permet un filtrage rapide sur ce conflit majeur
-- Toutes les fonctions sont documentées et modulaires pour faciliter la maintenance
+- **Chargement** : `load_data()` - Lecture CSV avec pandas
+- **Enrichissement** : `add_conflict_type_labels()`, `add_intensity_labels()`, `add_region_labels()`, `add_incompatibility_labels()` - Labels en français
+- **Temporalité** : `add_historical_periods()`, `add_decade()` - Périodes et décennies
+- **Géographie** : `extract_primary_country()` - Extraction pays principal
+- **Calculs** : `calculate_conflict_duration()`, `add_conflict_statistics()`, `flag_active_conflicts()` - Stats et durées
+- **Flags** : `flag_ukraine_russia_conflicts()` - Détection Ukraine/Russie
+- **Nettoyage** : `clean_dates()`, `select_final_columns()`, `sort_data()` - Dates, colonnes, tri
+- **Export** : `save_to_csv()`, `generate_summary_statistics()` - CSV + stats
+- **Orchestration** : `run_full_pipeline()` - Exécution séquentielle

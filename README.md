@@ -1,18 +1,18 @@
 # Projet : Visualiation de données massives
-# Analyse des Conflits Armés Mondiaux (1946-2024)
+# Analyse des conflits armés mondiaux (1946-2024)
 
 **Auteur :** RONDEAU Arthur  
 **Formation :** Master 1 Informatique Big Data - Université Paris 8
 
 ---
 
-## 📋 Description du Projet
+## Description du projet
 
 Projet de visualisation interactive des conflits armés à l'échelle mondiale utilisant les données de l'**Uppsala Conflict Data Program (UCDP)**. Le projet combine un pipeline Python de préparation des données et un dashboard Tableau avec 8 visualisations complémentaires pour analyser 78 ans de conflits armés.
 
 ---
 
-## 📊 Le Dataset
+## Le Dataset
 
 **Source :** UCDP PRIO Armed Conflict Dataset v25.1  
 **Volume :** 2 752 enregistrements | 303 conflits uniques | 119 pays affectés  
@@ -20,14 +20,14 @@ Projet de visualisation interactive des conflits armés à l'échelle mondiale u
 **Périmètre :** Conflits impliquant au moins un État (guerres interétatiques, guerres civiles, interventions militaires)
 
 ### Types de conflits
-- **Interstate** : Guerres entre États (ex: Russie vs Ukraine 2022) - 5%
-- **Interne** : Guerres civiles - 73%
-- **Internationalisé** : Guerres civiles avec intervention étrangère - 18%
-- **Extrasystémique** : Conflits coloniaux - 4%
+- **Interstate** : Guerres entre États (ex: Russie vs Ukraine 2022)
+- **Interne** : Guerres civiles
+- **Internationalisé** : Guerres civiles avec intervention étrangère
+- **Extrasystémique** : Conflits coloniaux
 
 ### Variables enrichies
 - **Géographie** : `Pays Carte`, `region_label` (Europe, Asie, Afrique, Moyen-Orient, Amériques)
-- **Temporalité** : `Decennie Text`, `periode_historique` (9 périodes : Post-WW2, Guerre Froide, Post-URSS...)
+- **Temporalité** : `Decennie Text`, `periode_historique` (Post-WW2, Guerre Froide, Post-URSS...)
 - **Typologie** : `type_conflit_label`, `objet_conflit` (Territoire vs Gouvernement)
 - **Intensité** : `intensite_label` (Mineur: 25-999 morts, Guerre: 1000+ morts)
 - **Statistiques** : `Duree Conflit`, `nb_annees`, `intensite_max`, `conflit_actif`
@@ -35,24 +35,24 @@ Projet de visualisation interactive des conflits armés à l'échelle mondiale u
 
 ---
 
-## 🎨 Les 7 Visualisations
+## Les 7 visualisations
 
-### 1. Carte Mondiale Interactive
+### 1. Carte mondiale interactive
 **Principe :** Cercles proportionnels au nombre de conflits par pays, colorés selon l'intensité (orange=mineur, rouge=guerre). Filtrable par année via slider.
 
-### 2. Timeline Évolution (1946-2024)
+### 2. Répartition par régions
+**Principe :** Barres horizontales des régions avec leur nombre de conflits à chacune.
+
+### 3. Timeline évolution (1946-2024)
 **Principe :** Lignes empilées montrant l'évolution du nombre de conflits dans le temps, par type de conflit.
 
-### 3. Top 10 Pays Affectés
+### 4. Top 10 pays affectés
 **Principe :** Barres horizontales des 10 pays avec le plus de conflits, avec gradient de couleur (rouge = plus touché).
 
-### 4. Heatmap Décennie × Région
+### 5. Heatmap décennie × région
 **Principe :** Grille colorée (9 décennies × 5 régions) où l'intensité de couleur représente le nombre de conflits. Identifie les zones chaudes à chaque époque.
 
-### 5. Treemap Types de Conflits
-**Principe :** Rectangles proportionnels au nombre de conflits par type (Interstate, Interne, Internationalisé, Extrasystémique).
-
-### 6. Top 5 Conflits les Plus Longs
+### 6. Top 5 conflits les plus longs
 **Principe :** Barres horizontales des 5 conflits avec la plus grande durée (calculée avec `annee_fin - annee_debut + 1`).
 
 ### 7. Heatmap Ukraine-Russie
@@ -60,44 +60,31 @@ Projet de visualisation interactive des conflits armés à l'échelle mondiale u
 
 ---
 
-## 📈 Résultats et Interprétations
+## Résultats et interprétations
 
-### Principaux Insights
-
+### Principaux insights
+ 
 **Géographie :**
-- **Myanmar leader** avec ~303 conflits (26% du total), suivi de l'Inde (187) et de l'Éthiopie (132)
-- **L'Asie concentre 39%** des conflits, suivie de l'Afrique (33%)
-- **Le Moyen-Orient** représente 14% malgré sa petite taille géographique
-
+- **L'Inde en tête** avec le plus grand nombre de conflits, suivi de la Russie
+- **L'Afrique concentre le plus de conflits**, suivie de l'Asie et de l'Europe
+ 
 **Évolution :**
-- **Tendance croissante** : +300% de conflits depuis 1946 (72 → 287)
-- **Pic historique** dans les années 2010 (456 conflits) lié au Printemps arabe
-- **61 conflits actifs en 2024**, dont des guerres majeures (Ukraine, Gaza, Myanmar)
-
-**Typologie :**
-- **73% de conflits internes** : domination écrasante des guerres civiles
-- **Seulement 5% interétatiques** : déclin des guerres État vs État
-- **18% internationalisés** : guerres civiles avec interventions étrangères
-
-**Enjeux :**
-- **55% territoriaux** : séparatisme, contrôle de régions, frontières
-- **44% gouvernementaux** : qui contrôle l'État, légitimité du régime
-
+- **Tendance croissante en Asie & Afrique** depuis 1946 : multiplication des conflits au fil des décennies
+- **Pic visible** dans les années 2010 en Afrique
+- **Nombreux conflits toujours actifs** depuis 2020
+ 
 **Ukraine-Russie :**
-- **2014** : année charnière (Maïdan, Crimée, Donbass)
-- **2022** : escalade majeure avec invasion russe
-- **2024** : conflit toujours actif avec soutien nord-coréen
-
+- **2014** : début du conflit (multiple adversaires : Maïdan, DPR, LPR)
+- **2022-2024** : intensification maximale (guerre totale)
+ 
 **Conflits les plus longs :**
-- Philippines : Insurrection communiste **79 ans** (1946-2024, incluant Hukbalahap puis CPP)
-- Myanmar vs CPB : **77 ans**
-- Myanmar vs KNU : **76 ans**
-- Myanmar vs KIO : **76 ans**
-- Turquie vs PKK : **41 ans**
-
+- **Philippines : 79 ans** d'insurrection communiste continue
+- **Myanmar : 3 conflits de 76-77 ans** (instabilité chronique)
+- **Turquie vs PKK : 41 ans**
+ 
 ---
 
-## 🚀 Installation et Lancement
+## Installation et lancement
 
 ### Prérequis
 ```bash
@@ -120,7 +107,7 @@ python main.py
 **Sortie :** `UCDP_Conflicts_Tableau_Ready.csv` dans `/outputs/`
 
 ### Visualisation Tableau
-- Ouvrir lien Tableau publique ou télécharger fichier .twb provenant du repo Github (avec jeu de données nettoyé)
+- Ouvrir lien [Tableau publique](https://public.tableau.com/app/profile/arthur.rondeau/viz/projet_17745227569860/Timelineconflits?publish=yes) ou télécharger fichier .twb provenant du repo Github (avec jeu de données nettoyé)
 
 ---
 

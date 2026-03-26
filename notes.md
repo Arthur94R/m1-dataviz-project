@@ -1,3 +1,0 @@
-- pour oral : OU, QUAND, QUI
-- Treemap Types ?
-- vérifier catégorie Résultats & Interprétations
